@@ -10,3 +10,13 @@ stages:
       - data/processed/y_train.csv
       - data/processed/X_test.csv
       - data/processed/y_test.csv
+  train:
+    cmd: python src/train.py
+    deps:
+      - data/processed/X_train.csv
+      - data/processed/y_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_test.csv
+      - src/train.py
+    outs:
+      - models/churn_model.h5
