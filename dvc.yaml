@@ -1,0 +1,12 @@
+# let's make a pipleline for preprocess
+stages:
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - data/raw
+      - src/preprocess.py
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/y_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_test.csv
