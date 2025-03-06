@@ -1,6 +1,6 @@
 # Customer Churn Prediction
 
-This project aims to predict whether a customer will leave a service using deep learning. It leverages several powerful tools to streamline the workflow and ensure reproducibility.
+This project predicts customer churn using deep learning, with tools such as DVC,MLflow, and FastAPI to streamline workflow and ensure reproducibility.
 
 ## Tools Used
 
