@@ -11,7 +11,7 @@ SCALER_PATH = "models/scaler.pkl"
 # Load the trained model
 model = keras.models.load_model(MODEL_PATH)
 
-# Load the trained scaler (must be saved during preprocessing)
+# Load the trained scaler
 scaler = joblib.load(SCALER_PATH)
 
 # Function to process input and predict churn
@@ -28,7 +28,6 @@ def preprocess_input(geography, gender, credit_score, age, tenure, balance, num_
     # One-hot encoding (Gender)
     gender_male = 1 if gender.lower() == "male" else 0
 
-    # Create input array (matching the order in X_train)
     input_data = np.array([[geo_germany, geo_spain, gender_male, credit_score,
                           age, tenure, balance, num_of_products, estimated_salary]])
 
@@ -49,9 +48,11 @@ def predict_churn(geography, gender, credit_score, age, tenure, balance, num_of_
 
 
 if __name__ == "__main__":
-    # Example input (replace with user-provided values)
     sample_input = ("France", "Male", 600, 35, 3, 125000, 2, 60000)
 
     # Make prediction
     result = predict_churn(*sample_input)
-    print(f"Predicted Churn: {result} (1 = Churn, 0 = No Churn)")
+    if result == 1:
+        print("The customer is predicted to churn.")
+    else:
+        print("The customer is predicted to stay.")

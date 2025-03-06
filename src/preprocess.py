@@ -16,7 +16,7 @@ numerical_features = ["CreditScore", "Age", "Tenure",
                       "Balance", "NumOfProducts", "EstimatedSalary"]
 
 # Define transformers
-# Ensure dense array output
+#
 encoder = OneHotEncoder(drop="first", sparse_output=False)
 scaler = StandardScaler()
 
@@ -30,7 +30,6 @@ preprocessor = ColumnTransformer([
 X = df.drop(columns=["Exited"])
 y = df["Exited"]
 
-# Fit the preprocessor
 preprocessor.fit(X)
 
 # Extract and save fitted encoder and scaler
@@ -42,7 +41,6 @@ joblib.dump(scaler_fitted, "models/scaler.pkl")
 
 print("✅ Encoder and Scaler saved successfully!")
 
-# Transform the data
 X_processed = preprocessor.transform(X)
 
 # Get feature names from fitted ColumnTransformer
