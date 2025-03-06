@@ -1,43 +1,96 @@
-# Customer Churn Prediction
+# Customer Churn Prediction using DVC, MLflow, and TensorFlow
 
-This project predicts customer churn using deep learning, with tools such as DVC,MLflow, and FastAPI to streamline workflow and ensure reproducibility.
+A machine learning pipeline for predicting customer churn using Deep Learning (ANN). This project incorporates DVC for data versioning, MLflow for experiment tracking, and FastAPI for deployment.
 
-## Tools Used
+## Key Features
+- ✅ Deep Learning Model (ANN) - Built with TensorFlow
+- ✅ Data Versioning with DVC - Tracks raw & processed data
+- ✅ Experiment Tracking with MLflow - Logs model metrics
+- ✅ FastAPI Deployment - REST API for model predictions
 
-### DVC (Data Version Control)
-DVC is utilized for managing data and models, ensuring reproducibility of experiments. The `dvc.yaml` file outlines the steps for data preparation and model training.
+## Setup the Project from Scratch
 
-### MLflow
-MLflow is employed to track experiments, logging essential information such as parameters and metrics. This enables comparison of different model runs and evaluation of performance.
+1. **Clone the Repository**
+  ```bash
+  git clone https://github.com/SA-K1B/customer-churn-prediction-dvc-mlflow-tensorflow
+  cd customer-churn-prediction-dvc-mlflow-tensorflow
+  ```
 
-### TensorFlow
-TensorFlow serves as the primary library for building and training the predictive model. It facilitates the creation of neural networks, which are used to predict customer churn.
+2. **Create and Activate Virtual Environment**
+  ```bash
+  python -m venv venv
+  source venv/bin/activate  # On macOS/Linux
+  venv\Scripts\activate     # On Windows
+  ```
 
-### FastAPI
-FastAPI is used to develop a web API for the model, allowing users to submit customer data and receive predictions efficiently. The API includes endpoints for health checks and making predictions.
+3. **Install Dependencies**
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-## How to Use
 
-1. **Clone the repository**: 
-   ```bash
-   git clone https://github.com/SA-K1B/MLOps-customer-churn-prediction-dvc-mlflow-tensorflow
-   cd customer-churn-prediction-dvc-mlflow-tensorflow
-   ```
+4. **Retrieve Dataset from DVC Storage**
+  ```bash
+  dvc pull
+  ```
+  This will download the dataset stored in Google Drive.
 
-2. **Install dependencies**: 
-   Install the required libraries listed in `requirements.txt`.
+5. **Reproduce the Entire ML Pipeline**
+  ```bash
+  dvc repro
+  ```
+  This runs:
+  - Preprocessing (`preprocess.py`) → Generates processed data.
+  - Training (`train.py`) → Trains & saves the model.
 
-3. **Run DVC pipeline**: 
-   Prepare the data and train the model using:
-   ```bash
-   dvc repro
-   ```
+## Running the FastAPI Server
 
-4. **Start the FastAPI server**: 
-   Launch the FastAPI application to access the prediction API:
-   ```bash
-   uvicorn src.app:app --reload
-   ```
+To deploy the model as an API:
+```bash
+uvicorn src.app:app --reload
+```
+The API will be accessible at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-5. **Make predictions**: 
-   Use the `/predict` endpoint to send customer data and receive churn predictions.
+Test endpoint: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) (Swagger UI)
+
+### Example API Request
+Example API Request using Postman:
+
+1. Open Postman.
+2. Create a new POST request.
+3. Set the URL to [http://127.0.0.1:8000/predict](http://127.0.0.1:8000/predict).
+4. Go to the "Headers" tab and set `Content-Type` to `application/json`.
+5. Go to the "Body" tab, select "raw" and paste the following JSON:
+
+  ```json
+  {
+    "Geography": "France",
+    "Gender": "Male",
+    "CreditScore": 600,
+    "Age": 35,
+    "Tenure": 3,
+    "Balance": 125000,
+    "NumOfProducts": 2,
+    "EstimatedSalary": 60000
+  }
+  ```
+
+Expected response:
+```json
+{
+  "churn_prediction": 0,
+  "message": "Customer will stay"
+}
+```
+
+## Tracking Experiments with MLflow
+
+Launch the MLflow UI to track model metrics:
+```bash
+mlflow ui
+```
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in a browser.
+
+## Connect with Me on LinkedIn
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/tarequl-hasan-sakib/)
